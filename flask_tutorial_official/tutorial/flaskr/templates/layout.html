@@ -4,14 +4,17 @@
 <div class=page>
   <h1>Flaskr</h1>
   <div class=metanav>
-  {% if not session.logged_in %}
-    <a href="{{ url_for('login') }}">log in</a>
+      <!-- 制御構造は{% %}のような形になる。なお、その部分はJinja2 jinja2はhtmlとpythonコードを同居できる。 -->
+  {% if not session.logged_in %} <!--ログイン状態かどうか判断。-->
+    <a href="{{ url_for('login') }}">log in</a>  <!-- <a>タグはAnchorタグ。リンクの出発点と到達点を指定？クリックしてリンクに飛べるようにする hrefはリンク先 -->
   {% else %}
     <a href="{{ url_for('logout') }}">log out</a>
   {% endif %}
   </div>
   {% for message in get_flashed_messages() %}
-    <div class=flash>{{ message }}</div>
+  <div class=flash>{{ message }}</div> <!-- 変数は{{ variable }}のような形式になる。 -->
   {% endfor %}
-  {% block body %}{% endblock %}
+  {% block body %}{% endblock %}  <!-- bodyという名前のブロックという扱いになる。レイアウトのbody部分にレンダリングされる。 -->
+  <!-- つまり、ここで子テンプレートを明示することで、子に書かれた内容を挿入できるのかな。 -->
+  <!-- http://www.subarunari.com/entry/2017/09/30/003944参照 -->
 </div>
