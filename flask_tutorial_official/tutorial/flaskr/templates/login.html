@@ -1,0 +1,16 @@
+{% extends "layout.html" %}
+{% block body %}
+<h2>Login</h2>
+{% if error %}
+<p class=error><strong>Error:</strong> {{ error }}</p>
+{% endif %}
+<form action="{{ url_for('login'}}" method=post>
+    <dl>
+        <dt>Username:</dt>
+        <dd><input type=text name=username></dd><!-- nameは部品の名前？よくわからん。typeはそのままだろう。 -->
+        <dt>Password:></dt>
+        <dd><input type=password neme=password></dd><!-- type-password入力した内容にマスクがかかる -->
+        <dd><input type=submit value=Login></dd><!-- valueは部品の初期値type-submitはフォームの実行ボタン -->
+    </dl>
+</form>
+{% endblodk %}
