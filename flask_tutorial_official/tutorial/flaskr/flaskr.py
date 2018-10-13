@@ -38,7 +38,12 @@ def init_db():
     with closing(connecet_db()) as db:
         with app.open_resource('schema.sql') as f:  # なんかよくわからんが、shema.sqlを実行してるのはわかるapplication objectらしい
             db.cursor().executescript(f.read())
-        db.commit()
+            # .cursorはcursorインスタンスを生成
+            # .executescript(sql_script)はSQL文を実行する
+            # cursorは表の中の1行を特定する道具。特定したあとで処理を行う
+        db.commit() # 現在のトランザクションをコミット。これをすると変更が反映される。
+        # コミット：トランザクション処理を確定すること
+        # 分割できない一連の処理の単位
 
 
 if __name__ == "__main__":
