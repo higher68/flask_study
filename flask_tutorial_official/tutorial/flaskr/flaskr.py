@@ -8,6 +8,8 @@ from contextlib import closing  # ブロックの完了時にthingをcloseする
 # コンテキストマネージャーは__enter__()と__exit__()メソッドを実行する。
 # 自動でログイン・ログアウトしてくれる的な?
 # gはグローバル変数を用意してくれるライブラリだそうで。
+# ルーティング：URLと処理を対応づけること。urlとfunctionをflaskでは結びつける。route()で行う
+
 
 # configuration
 DATABASE = "/tmp/flaskr.db"
@@ -61,7 +63,42 @@ def after_request(response):
     '''
     g.db.close()
     return response
+
+
+@app.route('/')  # http://xxx 以降のURLパスを '/' と指定
+def show_entries():
+    '''
+    return show_entries.htmlを読み込む際に、entriesという変数を渡す。
+    '''
+    cur = g.db.execute('select title, text from entriew order by id desc')
+    # execute()はsql文の実行
+    # title:row[0], text:row[1]
+    entries = [dict(title=row[0], text=row[1]) for row in cur.fetchall()]
+    # feetchallは全ての(残りの)クエリ結果の row をフェッチして、リストを返す
+    return render_template('show_entries.html', entries=entries)
+
+# ハンドルは処理を行うってこと？
+# おそらく、下のデコレータは、特定のhttpメソッドの時だけハンドルしてる?
+# route()は、HTTPメソッド名を渡すと、URLが受け入れるHTTPメソッドを指定できる
+# HTTPメソッドは、クライアントが行いたい処理をサーバに伝える種類は、色々あるよ
+# postはリソースへのデータ追加とかする。
+@app.route('/add', methods=['POST'])
+def add_entry():
+    '''
+    ログイン時に新規エントリーを追加するview
     
+    '''
+    # session：一度ログインしたら、それ以降はどのページでもログインした状態にできるようにする
+    # 下だと、ログインキーを取得してる
+    if not session.get('logged_in'):
+        abort(401)
+    g.db.execute('insert into entries (title, text) values (?, ?)',
+                 [request.form['title'], request.form['text']])
+    g.db.commit()
+    flash('New entry was successfully posted')
+    return redirect(url_for('show_entries')
+
+
 
 if __name__ == "__main__":
     app.run()
