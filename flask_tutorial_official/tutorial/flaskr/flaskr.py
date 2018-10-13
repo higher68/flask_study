@@ -7,6 +7,7 @@ from contextlib import closing  # ブロックの完了時にthingをcloseする
 # 要するに、処理が完了したら閉じてくれるってことか
 # コンテキストマネージャーは__enter__()と__exit__()メソッドを実行する。
 # 自動でログイン・ログアウトしてくれる的な?
+# gはグローバル変数を用意してくれるライブラリだそうで。
 
 # configuration
 DATABASE = "/tmp/flaskr.db"
@@ -45,6 +46,22 @@ def init_db():
         # コミット：トランザクション処理を確定すること
         # 分割できない一連の処理の単位
 
+
+@app.before_request
+def before_request():
+    '''今のデータベースとのコネクションが保存
+    '''
+    g.db = connect_db()
+
+
+
+@app.after_request
+def after_request(response):
+    '''gで保存されたコネクションをクローズ。DBからのレスポンスをクライアントに渡す。
+    '''
+    g.db.close()
+    return response
+    
 
 if __name__ == "__main__":
     app.run()
