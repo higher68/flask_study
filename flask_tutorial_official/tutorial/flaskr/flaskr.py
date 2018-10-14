@@ -96,9 +96,30 @@ def add_entry():
                  [request.form['title'], request.form['text']])
     g.db.commit()
     flash('New entry was successfully posted')
-    return redirect(url_for('show_entries')
+    return redirect(url_for('show_entries'))
 
 
+@app.route('/login', methods=['GET', 'POST'])
+def login():
+    error = None
+    if request.method == 'POST':  # POSTは、ページを要求する時に、追加情報をついでに送るやつ
+        if request.form['username'] != app.config['USERNAME']:
+            error = 'Invalid username'
+        elif request.form['password'] != app.config['PASSWORD']:
+            error = 'Invalid password'
+        else:
+            session['logge_in'] = True
+            flash('You were logged in')  # 処理が終わった時に表示するメッセがflash.画面上部とかによく出るやつ
+            return redirect(url_for('show_entries'))  # redirect：あるページから別のページに転送すること
+        # url_forで簡単にurlを指定できるんだろうなあ
+        
+    return render_template('login.html', error=error)
+
+@app.route('/logout')
+def logout():
+    session.pop('logged_in', None)  # 普通のpopと同じ。listからpopして、その値を返す。値がなかったら第二引数を返す
+    flash('You were logged out')
+    return redirect(url_for('show_entrids'))
 
 if __name__ == "__main__":
     app.run()
