@@ -1,4 +1,4 @@
-{% extends "layout.html"}<!-- 親のテンプレートを指定 -->
+{% extends "layout.html" %}<!-- 親のテンプレートを指定 -->
 {% block body %}<!-- 子田プレートの内容を定義 -->
 {% if session.logged_in %}
 <!-- formタグは、入力・送信フォーウを作るときに使用する要素 -->
@@ -17,8 +17,8 @@
 <ul class=entries>
     {% for entry in entries %}
     <li><h2>{{ entry.title }}</h2>{{ entry.text|safe }}</li>
-    {% else}
+    {% else %}
     <li><em>unbelievable. Noentries here so far</em></li><!-- emphasis囲った部分が強調される。 -->
     {% endfor %}
 </ul>
-{% endblodk}
+{% endblock %}
