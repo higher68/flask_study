@@ -1,8 +1,8 @@
 # all the imports
+from __future__ import with_statement
 import sqlite3
 from flask import Flask, request, session, g, redirect, url_for, \
                   abort, render_template, flash
-from __future__ import with statement
 from contextlib import closing  # ブロックの完了時にthingをcloseするコンテキストマネージャを返す。
 # 要するに、処理が完了したら閉じてくれるってことか
 # コンテキストマネージャーは__enter__()と__exit__()メソッドを実行する。
