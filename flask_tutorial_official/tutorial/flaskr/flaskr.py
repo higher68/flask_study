@@ -1,5 +1,6 @@
 # all the imports
-from __future__ import with_statement
+from __future__ import with_statement  # 必ず先頭に記述。__future__はpython2.5以前でそれ以降のverの機能を使えるようにする
+# with_statementだとwithが使えるようになる(2.5)だと使えないらしい
 import sqlite3
 from flask import Flask, request, session, g, redirect, url_for, \
                   abort, render_template, flash
