@@ -39,9 +39,9 @@ def init_db():
     '''
     データベースの初期化
     '''
-    with closing(connecet_db()) as db:
+    with closing(connect_db()) as db:
         with app.open_resource('schema.sql') as f:  # なんかよくわからんが、shema.sqlを実行してるのはわかるapplication objectらしい
-            db.cursor().executescript(f.read())
+            db.cursor().executescript(f.read().decode('utf-8'))  # utf-8でデコードしないと叱られる
             # .cursorはcursorインスタンスを生成
             # .executescript(sql_script)はSQL文を実行する
             # cursorは表の中の1行を特定する道具。特定したあとで処理を行う
@@ -71,7 +71,7 @@ def show_entries():
     '''
     return show_entries.htmlを読み込む際に、entriesという変数を渡す。
     '''
-    cur = g.db.execute('select title, text from entriew order by id desc')
+    cur = g.db.execute('select title, text from entries order by id desc')
     # execute()はsql文の実行
     # title:row[0], text:row[1]
     entries = [dict(title=row[0], text=row[1]) for row in cur.fetchall()]
