@@ -18,7 +18,7 @@ class FlaskrTestCase(unittest.TestCase):
         # 低レベルなファイルハンドルと、データベース名を返す？
         # mkstempで作ったファイルはユーザーが手動で削除する必要あり
         # mkstemp()の戻りは、ファイル値とファイルの絶対パス
-        self.db_fd, flaskr.DATABASE = tempfile.mkstemp()
+        self.db_fd, flaskr.app.config['DATABASE'] = tempfile.mkstemp()
         self.app = flaskr.app.test_client()
         flaskr.init_db()
 
@@ -28,8 +28,18 @@ class FlaskrTestCase(unittest.TestCase):
         一般にテストメソッドが実行され、結果が記録された直後に呼び出されるメソッド
         テスト後のデータベース削除。
         '''
-        os.close(self.db)
+        os.close(self.db_fd)
         os.unlink(flaskr.DATABASE)
+
+    def test_empty_db(self):
+        '''
+        アプリのルート=「\」にアクセスすると、アプリが"No entries here so far"を表示することをチェック
+'''
+        rv = self.app.get('/')  # self.app.gethttp getリクエストを特定のパスがあるアプリに送る
+        print(rv)
+        # GETはWebサーバに値を送る時にURLの後ろにくっつけておくる。何かを取得する時に使う
+        # POSTは値を見えないところに隠しておくる?何かを新しく登録する時に使う
+        assert 'No entries here so far' in rv.data  # 条件がTrue出ない時に例外を投げるんだってさ。
 
 
 if __name__ == '__main__':
