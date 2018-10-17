@@ -24,7 +24,7 @@ app = Flask(__name__)
 app.config.from_object(__name__)  # 与えたオブジェクト内部で大文字の変数を全て取得。外からも渡せる。
 # 環境変数から設定を引き継ぐ場合
 # app.config.from_envvar("FLASK_SETTINGS", silent=True)
-
+print("hoge1")
 
 def connect_db():
     '''データベースにコネクトする。思想的には、アクセスするというよりも、コネクションを作るらしい。
@@ -32,6 +32,7 @@ def connect_db():
     
     return connectionオブジェクト。データベースを表すらしい
     '''
+    print("connect_db")
     return sqlite3.connect(app.config["DATABASE"])
 
 
@@ -39,6 +40,7 @@ def init_db():
     '''
     データベースの初期化
     '''
+    print("init_db")
     with closing(connect_db()) as db:
         with app.open_resource('schema.sql') as f:  # なんかよくわからんが、shema.sqlを実行してるのはわかるapplication objectらしい
             db.cursor().executescript(f.read().decode('utf-8'))  # utf-8でデコードしないと叱られる
@@ -54,6 +56,7 @@ def init_db():
 def before_request():
     '''今のデータベースとのコネクションが保存
     '''
+    print("before_request")
     g.db = connect_db()
 
 
@@ -62,6 +65,7 @@ def before_request():
 def after_request(response):
     '''gで保存されたコネクションをクローズ。DBからのレスポンスをクライアントに渡す。
     '''
+    print("after_request")
     g.db.close()
     return response
 
@@ -71,6 +75,7 @@ def show_entries():
     '''
     return show_entries.htmlを読み込む際に、entriesという変数を渡す。
     '''
+    print("show_entries")
     cur = g.db.execute('select title, text from entries order by id desc')
     # execute()はsql文の実行
     # title:row[0], text:row[1]
@@ -91,6 +96,7 @@ def add_entry():
     '''
     # session：一度ログインしたら、それ以降はどのページでもログインした状態にできるようにする
     # 下だと、ログインキーを取得してる
+    print("add_entry")
     if not session.get('logged_in'):
         abort(401)
     g.db.execute('insert into entries (title, text) values (?, ?)',
@@ -103,6 +109,7 @@ def add_entry():
 @app.route('/login', methods=['GET', 'POST'])
 def login():
     error = None
+    print("login")
     if request.method == 'POST':  # POSTは、ページを要求する時に、追加情報をついでに送るやつ
         if request.form['username'] != app.config['USERNAME']:
             error = 'Invalid username'
@@ -120,8 +127,9 @@ def login():
 def logout():
     session.pop('logged_in', None)  # 普通のpopと同じ。listからpopして、その値を返す。値がなかったら第二引数を返す
     flash('You were logged out')
+    print("logout")
     return redirect(url_for('show_entrids'))
-
+print("hoge2")
 if __name__ == "__main__":
     app.run()
             
