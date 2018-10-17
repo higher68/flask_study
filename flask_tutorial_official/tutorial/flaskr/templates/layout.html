@@ -4,7 +4,8 @@
 <div class=page>
   <h1>Flaskr</h1>
   <div class=metanav>
-      <!-- 制御構造は{% %}のような形になる。なお、その部分はJinja2 jinja2はhtmlとpythonコードを同居できる。 -->
+      <!-- 制御構造は{と%を重ねたのような形になる。なお、その部分はJinja2 jinja2はhtmlとpythonコードを同居できる。ただ、コメントアウト中で{と%で囲むと、jinjatemplateと認識されるので注意
+      -->
   {% if not session.logged_in %} <!--ログイン状態かどうか判断。-->
     <a href="{{ url_for('login') }}">log in</a>  <!-- <a>タグはAnchorタグ。リンクの出発点と到達点を指定？クリックしてリンクに飛べるようにする hrefはリンク先 -->
   {% else %}
