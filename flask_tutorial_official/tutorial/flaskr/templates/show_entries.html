@@ -18,7 +18,7 @@
     {% for entry in entries %}
     <li><h2>{{ entry.title }}</h2>{{ entry.text|safe }}</li>
     {% else %}
-    <li><em>unbelievable. Noentries here so far</em></li><!-- emphasis囲った部分が強調される。 -->
+    <li><em>unbelievable. No entries here so far</em></li><!-- emphasis囲った部分が強調される。 -->
     {% endfor %}
 </ul>
 {% endblock %}
