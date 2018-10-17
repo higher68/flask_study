@@ -2,8 +2,10 @@ import os
 import flaskr  # flaske.pyをロード
 import unittest  # プログラムをテストするためのライブラリ
 import tempfile  # 一時ファイルやディレクトリの作成
-
-
+import os
+print("hoho")
+os.system('sqlite3 /tmp/flaskr.db < schema.sql')
+print("hohoge")
 # class クラス名前(親クラス)とすると、新しいクラスはサブクラスにんる
 # TestCaseクラスはunittestの世界での論理的なテストの単位。
 # TestCaseクラスをベースとして必要なテストをサブクラスに実装する。
@@ -39,7 +41,7 @@ class FlaskrTestCase(unittest.TestCase):
         # print(rv)
         # GETはWebサーバに値を送る時にURLの後ろにくっつけておくる。何かを取得する時に使う
         # POSTは値を見えないところに隠しておくる?何かを新しく登録する時に使う
-        assert 'No entries here so far' in rv.data  # 条件がTrue出ない時に例外を投げるんだってさ。
+        assert b'No entries here so far' in rv.data  # 条件がTrue出ない時に例外を投げるんだってさ。
 
 
 if __name__ == '__main__':
