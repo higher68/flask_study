@@ -36,7 +36,7 @@ class FlaskrTestCase(unittest.TestCase):
         アプリのルート=「\」にアクセスすると、アプリが"No entries here so far"を表示することをチェック
 '''
         rv = self.app.get('/')  # self.app.gethttp getリクエストを特定のパスがあるアプリに送る
-        print(rv)
+        # print(rv)
         # GETはWebサーバに値を送る時にURLの後ろにくっつけておくる。何かを取得する時に使う
         # POSTは値を見えないところに隠しておくる?何かを新しく登録する時に使う
         assert 'No entries here so far' in rv.data  # 条件がTrue出ない時に例外を投げるんだってさ。
