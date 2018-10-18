@@ -44,5 +44,16 @@ class FlaskrTestCase(unittest.TestCase):
         assert b'No entries here so far' in rv.data  # 条件がTrue出ない時に例外を投げるんだってさ。
 
 
+    def login(self, username, password):
+        return self.app.post('/login', data=dict(
+            username=username,
+            password=password
+            ), follow_redirects=True)
+
+
+    def logout(self):
+        return self.app.get('/logout', follow_redirects=True)
+
+
 if __name__ == '__main__':
     unittest.main()
