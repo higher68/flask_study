@@ -43,16 +43,31 @@ class FlaskrTestCase(unittest.TestCase):
         # POSTは値を見えないところに隠しておくる?何かを新しく登録する時に使う
         assert b'No entries here so far' in rv.data  # 条件がTrue出ない時に例外を投げるんだってさ。
 
-
     def login(self, username, password):
+        '''正直app.postがよくわからんが、おそらく
+1st引数に、アドレス、第二に渡すもの、第三はまあリダイレクトだから、post or getした後で、ページに飛ぶってことか？
+        '''
         return self.app.post('/login', data=dict(
             username=username,
             password=password
             ), follow_redirects=True)
 
-
+   
     def logout(self):
         return self.app.get('/logout', follow_redirects=True)
+
+
+    def test_login_logout(self):
+        # login、logoutが正常終了するか
+        rv = self.login('adimin', 'default')
+        assert b'You were logged in' in rv.data
+        rv = self.logout()
+        assert b'You were logged out' in rv.data
+        # login、logoutが正常失敗するか
+        rv = self.login('adminx', 'default')
+        assert b'Invalid username' in rv.data
+        rv = self.login('admin', 'dafaultx')
+        assert b'Invalid password' in rv.data
 
 
 if __name__ == '__main__':
