@@ -9,7 +9,13 @@ app = Flask(__name__)  # アプリの本体をインスタンスとして作成
 # @app.route('/')なら、localhost:5000にアクセスした時のレスポンス
 # @app.route('/hoge')なら、localhost:5000/hogeにアクセスした時のレスポンスを指定
 
+
 # /にアクセスがあった時の処理
 @app.route('/')
 def hello_world():
     return 'Hello World!'
+
+
+@app.route('/hoge')
+def hoge():
+    return 'hoge!'
