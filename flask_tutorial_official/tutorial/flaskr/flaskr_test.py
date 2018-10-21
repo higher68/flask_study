@@ -3,9 +3,9 @@ import flaskr  # flaske.pyをロード
 import unittest  # プログラムをテストするためのライブラリ
 import tempfile  # 一時ファイルやディレクトリの作成
 import os
-print("hoho")
+# print("hoho")
 os.system('sqlite3 /tmp/flaskr.db < schema.sql')
-print("hohoge")
+# print("hohoge")
 # class クラス名前(親クラス)とすると、新しいクラスはサブクラスにんる
 # TestCaseクラスはunittestの世界での論理的なテストの単位。
 # TestCaseクラスをベースとして必要なテストをサブクラスに実装する。
@@ -22,16 +22,18 @@ class FlaskrTestCase(unittest.TestCase):
         # mkstemp()の戻りは、ファイル値とファイルの絶対パス
         self.db_fd, flaskr.app.config['DATABASE'] = tempfile.mkstemp()
         self.app = flaskr.app.test_client()
-        flaskr.init_db()
+        with flaskr.app.app_context():
+            flaskr.init_db()
 
-
+        
     def tearDown(self):
         '''
         一般にテストメソッドが実行され、結果が記録された直後に呼び出されるメソッド
         テスト後のデータベース削除。
         '''
         os.close(self.db_fd)
-        os.unlink(flaskr.DATABASE)
+        os.unlink(flaskr.app.config['DATABASE'])
+
 
     def test_empty_db(self):
         '''
@@ -59,7 +61,7 @@ class FlaskrTestCase(unittest.TestCase):
 
     def test_login_logout(self):
         # login、logoutが正常終了するか
-        rv = self.login('adimin', 'default')
+        rv = self.login('admin', 'default')
         assert b'You were logged in' in rv.data
         rv = self.logout()
         assert b'You were logged out' in rv.data
@@ -68,6 +70,20 @@ class FlaskrTestCase(unittest.TestCase):
         assert b'Invalid username' in rv.data
         rv = self.login('admin', 'dafaultx')
         assert b'Invalid password' in rv.data
+
+
+    def test_messages(self):
+         self.login('admin', 'default')
+         rv = self.app.post('/add', data=dict(
+             title='<Hello>',
+             text='<strong>HTML</strong> allowed here'),
+                            follow_redirects=True)
+         assert b'No entries here so far' not in rv.data
+         assert b'&lt;Hello&gt;' in rv.data
+         assert b'<strong>HTML</strong> allowed here' in rv.data
+
+
+
 
 
 if __name__ == '__main__':
