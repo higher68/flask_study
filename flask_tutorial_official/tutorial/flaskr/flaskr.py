@@ -97,10 +97,11 @@ def add_entry():
     # session：一度ログインしたら、それ以降はどのページでもログインした状態にできるようにする
     # 下だと、ログインキーを取得してる
     print("add_entry")
+    print("ageagehogeeeeeee")
     if not session.get('logged_in'):
         abort(401)
-    g.db.execute('insert into entries (title, text) values (?, ?)',
-                 [request.form['title'], request.form['text']])
+    print("hogeeeeeeee")
+    g.db.execute('insert into entries (title, text) values (?, ?)', [request.form['title'], request.form['text']])
     g.db.commit()
     flash('New entry was successfully posted')
     return redirect(url_for('show_entries'))
@@ -109,14 +110,13 @@ def add_entry():
 @app.route('/login', methods=['GET', 'POST'])
 def login():
     error = None
-    print("login")
     if request.method == 'POST':  # POSTは、ページを要求する時に、追加情報をついでに送るやつ
         if request.form['username'] != app.config['USERNAME']:
             error = 'Invalid username'
         elif request.form['password'] != app.config['PASSWORD']:
             error = 'Invalid password'
         else:
-            session['logge_in'] = True
+            session['logged_in'] = True
             flash('You were logged in')  # 処理が終わった時に表示するメッセがflash.画面上部とかによく出るやつ
             return redirect(url_for('show_entries'))  # redirect：あるページから別のページに転送すること
         # url_forで簡単にurlを指定できるんだろうなあ
@@ -128,7 +128,7 @@ def logout():
     session.pop('logged_in', None)  # 普通のpopと同じ。listからpopして、その値を返す。値がなかったら第二引数を返す
     flash('You were logged out')
     print("logout")
-    return redirect(url_for('show_entrids'))
+    return redirect(url_for('show_entries'))
 print("hoge2")
 if __name__ == "__main__":
     app.run()
