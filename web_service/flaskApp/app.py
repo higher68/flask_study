@@ -16,10 +16,12 @@ def hello_world():
     return 'Hello World!'
 
 
-@app.route('/hoge')
+@app.route('/hoge', methods=['GET'])
 def hoge():
-    return 'hoge!'
-
+    return 'hoge'
+@app.route('/hoge', methods=['POST'])
+def Hoge():
+    return "Hoge"
 
 @app.route('/foo/')
 def foo():
@@ -29,3 +31,5 @@ def foo():
 @app.route('/fuga')
 def fuga():
     return 'fuga'  # この場合fuga/とすると飛べない
+
+
