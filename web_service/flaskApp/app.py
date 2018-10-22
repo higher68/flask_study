@@ -19,3 +19,13 @@ def hello_world():
 @app.route('/hoge')
 def hoge():
     return 'hoge!'
+
+
+@app.route('/foo/')
+def foo():
+    return 'foo'  # この場合foo/としなくてもURLに飛べる
+
+
+@app.route('/fuga')
+def fuga():
+    return 'fuga'  # この場合fuga/とすると飛べない
