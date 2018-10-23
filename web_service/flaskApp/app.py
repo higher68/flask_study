@@ -17,6 +17,17 @@ app = Flask(__name__)
 def title(title):
     return render_template('index.html', title=title)
 
+# ルーティングからユーザがパスに入力した値を利用する例
+@app.route('/user/<string:username>')  # stringに引数の型を指定
+def user(username):
+    return username
+
+
+@app.route('/user/<int:user_id>')
+def user_id(id):
+    return id
+
+
 # /にアクセスがあった時の処理
 @app.route('/')
 def hello_world():
