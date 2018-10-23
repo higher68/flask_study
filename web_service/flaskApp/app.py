@@ -13,7 +13,19 @@ app = Flask(__name__)  # アプリの本体をインスタンスとして作成
 # /にアクセスがあった時の処理
 @app.route('/')
 def hello_world():
-    return 'Hello World!'
+    return """
+<!DOCTYPE>
+<html>
+<head>
+<meta charset="utf-8">
+<link = "stylesheet"
+href-"/static/style.css"/>
+</head>
+<body>
+<h1> Hello World</h1>
+</body>
+</html
+"""
 
 
 @app.route('/hoge', methods=['GET'])
