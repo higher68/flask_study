@@ -1,0 +1,19 @@
+<!-- ユーザから送信されたフォームを受け取る -->
+<!DOCTYPE:html>
+<html>
+    <head>
+        <meta charset="utf-8"/>
+    </head>
+    <body>
+        <h1>メールアドレスと名前を送信してください</h1>
+        <form method="POST" action="/login">
+            <!-- 名前の入力ボックス -->
+            <!-- placeholderは入力前に書いてあるあれ -->
+            <input placeholder="名前" name="username" type="text"/>
+            <!-- メルアドの入力ボックス -->
+            <input placeholder="メール" name="email" type="text"/>
+            <!-- 入力内容の送信ボタン -->
+            <input value="送信" type="submit"/>
+        </form>
+    </body>
+</html>
