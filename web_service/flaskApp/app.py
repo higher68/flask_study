@@ -42,14 +42,29 @@ URLのパラメータを取得
 def render_form():
     return render_template('login.html')
 
-# request.formってもしや、formタグの変数を指定すると受け取れるってことかな
+# request.formってもしや、formタグ中のinputの中のnameに格納された変数を指定すると受け取れるってことかな
 @app.route('/login', methods=['POST'])
 def login():
+    print("hogerun")
     if request.form['username'] and request.form['email']:
         return render_template('check.html', email=request.form['email'], username=request.form['username'])
     else:
         return render_template('error.html')
     
+@app.route('/upload', methods=['GET'])
+def render_upload_form():
+    return render_template('upload.html')
+
+
+@app.route('/upload', methods=['POST'])
+def upload_file():
+    if request.form['name'] and request.files['image']:
+        print("hoge")
+        f = request.files['image']
+        f.save('static/hoge.png')
+        return render_template('result.html', name=request.form['name'])
+
+
 
 # /にアクセスがあった時の処理
 @app.route('/')
