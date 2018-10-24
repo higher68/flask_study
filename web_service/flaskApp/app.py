@@ -42,7 +42,7 @@ URLのパラメータを取得
 def render_form():
     return render_template('login.html')
 
-
+# request.formってもしや、formタグの変数を指定すると受け取れるってことかな
 @app.route('/login', methods=['POST'])
 def login():
     if request.form['username'] and request.form['email']:
