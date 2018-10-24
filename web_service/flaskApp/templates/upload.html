@@ -1,11 +1,15 @@
 <!DOCTYPE html>
 <html>
     <head>
-        <meta charset='utf-8'>
+        <meta charset='utf-8'/>
     </head>
     <body>
         <h1>画像をアップロード</h1>
         <form method="POST" action="/upload" enctype="multipart/form-data">
+            <!-- <form>のactionはデータの転送先先。URIと呼ぶ。 -->
+            <input placeholder="名前" name="name" type="text"/>
+            <!-- Webでコンテンツを送る時にMINETYPEという形式が利用されている。その一つがmultipart/form-data-->
+            <!-- multipart/form-data自体は、複数のファイル形式を扱える形式で、ファイルのアップロードによく使わレル -->
             <input name='image' type="file"/>
             <input value="送信" type="submit"/>
         </form>
