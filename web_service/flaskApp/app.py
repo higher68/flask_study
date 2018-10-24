@@ -1,5 +1,6 @@
 from flask import Flask
-from flask import render_template  # 特定のルーティングからテンプレートエンジンを呼び出す
+from flask import render_template  # 特定のルーティングからテンプレエンジンを呼び出す
+from flask import request  # ユーザから要求されるリクエストを受け取るライブラリート
 # Flaskクラスのインポート
 app = Flask(__name__)  # アプリの本体をインスタンスとして作成
 # webアプリでは、http://のあとの最初の/で、ユーザーのリクエストの種類を見分けている。
@@ -27,6 +28,28 @@ def user(username):
 def user_id(id):
     return id
 
+
+@app.route('/search')
+def search():
+    '''
+qで指定されたパラメータを取得
+URLのパラメータを取得
+'''
+    q = request.args.get('q', '')
+    return q  # ?q=何ちゃらの何ちゃらが出力される。returnなのに注意。htmlは介してない。
+
+@app.route('/login', methods=['GET'])
+def render_form():
+    return render_template('login.html')
+
+
+@app.route('/login', methods=['POST'])
+def login():
+    if request.form['username'] and request.form['email']:
+        return render_template('check.html', email=request.form['email'], username=request.form['username'])
+    else:
+        return render_template('error.html')
+    
 
 # /にアクセスがあった時の処理
 @app.route('/')
