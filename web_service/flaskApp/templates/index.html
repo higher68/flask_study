@@ -4,6 +4,9 @@
         <meta charset="utf-8"/>
     </head>
     <body>
-        <h1>{{obj['title']}}</h1>
+        <!-- オートスケープを無効にする -->
+        {% autoescape false %}
+        <p>{{ unescaped }}</p>
+        {% endautoescape %}
     </body>
 </html>
