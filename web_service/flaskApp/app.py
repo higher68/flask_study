@@ -2,6 +2,8 @@ from flask import Flask
 from flask import render_template  # 特定のルーティングからテンプレエンジンを呼び出す
 from flask import request  # ユーザから要求されるリクエストを受け取るライブラリート
 # Flaskクラスのインポート
+from werkzeug.utils import secure_filename  # アップロードされたファイル名から自動的に安全なファイル名を作成して保存するよう設定できる
+
 app = Flask(__name__)  # アプリの本体をインスタンスとして作成
 # webアプリでは、http://のあとの最初の/で、ユーザーのリクエストの種類を見分けている。
 # ルーティング＝サーバ側にこの処理の振り分けを実装する
@@ -61,8 +63,11 @@ def upload_file():
     if request.form['name'] and request.files['image']:
         print("hoge")
         f = request.files['image']
-        f.save('static/hoge.png')
-        return render_template('result.html', name=request.form['name'])
+        filepath = 'static/' + secure_filename(f.filename)
+        # secure_filenameは例外辞書に当てはまるものを弾く仕様なのかな
+        print(filepath)
+        f.save(filepath)
+        return render_template('result.html', name=request.form['name'], image_url=filepath)
 
 
 
