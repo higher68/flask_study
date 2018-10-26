@@ -4,13 +4,20 @@
         <meta charset="utf-8"/>
     </head>
     <body>
-        <!-- テンプレートがそのまま表示 -->
-        {% raw %}
-        <h1>{{title}}</h1>
-        {% endraw %}
+        <!-- jinjaのescapeは行を跨がれる。便利-->
+        <!-- テンプレートがそのまま表示
+        {# {% raw %}
+         <h1>{{title}}</h1>
+        {% endraw %}#} -->
         <!-- オートスケープを無効にする -->
-        <!--   {# {% autoescape false %}-->
-        <!--  <p>{{ unescaped }}</p> -->
-        <!--  {% endautoescape %} }#}-->
+        <!--   {# {% autoescape false %}
+         <p>{{ unescaped }}</p>
+         {% endautoescape %} #}-->
+        <!--  if文 -->
+        {% if random > 0.5 %}
+        <h1>Hoge</h1>
+        {% else %}
+        <h1>Fuga</h1>
+        {% endif %}
     </body>
 </html>
