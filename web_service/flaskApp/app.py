@@ -73,20 +73,24 @@ def upload_file():
 
 # /にアクセスがあった時の処理
 @app.route('/')
-def hello_world():
-    return """
-<!DOCTYPE>
-<html>
-<head>
-<meta charset="utf-8">
-<link rel="stylesheet"
-href="/static/style.css"/>
-</head>
-<body>
-<h1> Hello World</h1>
-</body>
-</html>
-"""
+def index():
+    # 単純に引数をテンプレートに渡す
+    return render_template('index.html', title="Hello World")
+
+## ef hello_world():  # render_templateを使わない時
+##     return """
+## <!DOCTYPE>
+## <html>
+## <head>
+## <meta charset="utf-8">
+## <link rel="stylesheet"
+## href="/static/style.css"/>
+## </head>
+## <body>
+## <h1> Hello World</h1>
+## </body>
+## </html>
+## """
 
 
 @app.route('/hoge', methods=['GET'])
