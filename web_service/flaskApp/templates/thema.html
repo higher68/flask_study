@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        {% block head %}
+        <!-- <link>は関連するページとの関係を表すタグ -->
+        <!-- relはこの文書から見た参照ページとの関係を表す -->
+        <!-- hrefは参照する文書のURL -->
+        <link rel="stylesheet" href="/static/style.css"/>
+        <!-- titleは文字どおり文書のタイトル -->
+        <title>{% block title %}{% endblock %}</title>
+        {% endblock %}
+    </head>
+    <body>
+        <!-- classとidの違いは、classは文字どおり、クラスなので、複数のタグで同じものを宣言できる。idは一個のタグに一個 -->
+        <div id="content">
+            {% block content %}
+            {% endblock %}
+        </div>
+        <!-- <a>はアンカー。リンクの出発点や到達点を表す。指定した文字が表示され、それをクリックすると指定したリンクへ飛ぶ。 -->
+        <div id="footer">
+            {% block footer %}
+            &copy;; Copyright 2018 by <a href="http://www.example.com/">Junya Haya</a>
+            {% endblock %}
+        </div>
+    </body>
+    
+</html>
