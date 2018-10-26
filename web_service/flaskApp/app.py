@@ -3,7 +3,7 @@ from flask import render_template  # 特定のルーティングからテンプ�
 from flask import request  # ユーザから要求されるリクエストを受け取るライブラリート
 # Flaskクラスのインポート
 from werkzeug.utils import secure_filename  # アップロードされたファイル名から自動的に安全なファイル名を作成して保存するよう設定できる
-
+from random import random
 app = Flask(__name__)  # アプリの本体をインスタンスとして作成
 # webアプリでは、http://のあとの最初の/で、ユーザーのリクエストの種類を見分けている。
 # ルーティング＝サーバ側にこの処理の振り分けを実装する
@@ -79,10 +79,13 @@ def upload_file():
 ## def index():
 ##     # 辞書データにアクセス
 ##     return render_template('index.html', obj={"title": "hoge"})
+## def index():
+##      # 単純に引数をテンプレートに渡す
+##      return render_template('index.html', title="Hello World")
+# randomで表示ページを変える。
+@app.route('/')
 def index():
-     # 単純に引数をテンプレートに渡す
-     return render_template('index.html', title="Hello World")
-
+    return render_template('index.html', random=random())
 ## ef hello_world():  # render_templateを使わない時
 ##     return """
 ## <!DOCTYPE>
