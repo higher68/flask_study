@@ -73,15 +73,15 @@ def upload_file():
 
 # /にアクセスがあった時の処理
 @app.route('/')
-def index():
-    # scriptタグがそのまま出力されてしまい危険
-    return render_template('index.html', unescaped="<script>alert('hoge')</script>")
+## def index():
+##     # scriptタグがそのまま出力されてしまい危険
+##     return render_template('index.html', unescaped="<script>alert('hoge')</script>")
 ## def index():
 ##     # 辞書データにアクセス
 ##     return render_template('index.html', obj={"title": "hoge"})
-## def index():
-##     # 単純に引数をテンプレートに渡す
-##     return render_template('index.html', title="Hello World")
+def index():
+     # 単純に引数をテンプレートに渡す
+     return render_template('index.html', title="Hello World")
 
 ## ef hello_world():  # render_templateを使わない時
 ##     return """
