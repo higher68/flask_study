@@ -21,10 +21,27 @@
              {% endif %} #} -->
         <!-- ループ -->
         <!-- <ul>は順序なしの箇条書きリスト。リストの中身は<li>でかく -->
-        <ul>
+        <!-- {# <ul>
             {% for item in l %}
             <li>{{item}}</li>
             {% endfor %}
-        </ul>
+        </ul> #} -->
+        <!-- <table>は表を作る -->
+        <!-- <tr>はtable-rowつまり、行方向の指定 -->
+        <!-- <th>は、table-header:テーブルのヘッダ-->
+        <!-- <td>はtable-data:テーブルのデータ -->
+        <table>
+            <tr>
+                <th></th>
+                <th></th>
+            </tr>
+            {% for item in l %}
+            <tr>            
+                <td>{{item.name}}</td>
+                <td>{{item.value}}</td>
+            </tr>
+            {% endfor %}
+        </table>
+        
     </body>
 </html>
