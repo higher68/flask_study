@@ -83,9 +83,13 @@ def upload_file():
 ##      # 単純に引数をテンプレートに渡す
 ##      return render_template('index.html', title="Hello World")
 # randomで表示ページを変える。
+## @app.route('/')
+## def index():
+##     return render_template('index.html', random=random())
+# loopでリスト表示
 @app.route('/')
 def index():
-    return render_template('index.html', random=random())
+    return render_template('index.html', l=["Hoge", "Fuga", "Foo"])
 ## ef hello_world():  # render_templateを使わない時
 ##     return """
 ## <!DOCTYPE>

@@ -14,10 +14,17 @@
          <p>{{ unescaped }}</p>
          {% endautoescape %} #}-->
         <!--  if文 -->
-        {% if random > 0.5 %}
+        <!--  {# {% if random > 0.5 %}
         <h1>Hoge</h1>
         {% else %}
         <h1>Fuga</h1>
-        {% endif %}
+             {% endif %} #} -->
+        <!-- ループ -->
+        <!-- <ul>は順序なしの箇条書きリスト。リストの中身は<li>でかく -->
+        <ul>
+            {% for item in l %}
+            <li>{{item}}</li>
+            {% endfor %}
+        </ul>
     </body>
 </html>
