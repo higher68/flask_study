@@ -4,7 +4,7 @@
         <meta charset="utf-8">
         <meta name="viewpoint" content="width=device-width, initial-scale=1">
         <!-- metaはnameを指定して、それに関わるいろんな設定をいじれる.
-        viewpointの場合は文書の表示領域。widhは大きさ。initia-scaleは画面の拡大率の初期値-->
+             viewpointの場合は文書の表示領域。widhは大きさ。initia-scaleは画面の拡大率の初期値-->
         <title>アンサ：トップページ</title>
         <!-- bootstrap.css load -->
         <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
@@ -15,12 +15,40 @@
         <!-- navbar-fixed-topはナビゲーションを画面上に固定 -->
         <!--  <nav class="navbar navbar-inverse navbar-fixed-top">-->
         <!-- ナビゲーションの背景を青に変更 -->
-        <nav class="navbar navbar-dark bg-dark navbar-fixed-top">
+        <!-- expandが折りたたみようなのはわかったけどlg謎 -->
+        <nav class="navbar navbar-dark bg-dark navbar-expand-lg">
             <!-- <div class="navbar-header">-->
-                <!-- navbar-header ナビゲーションの内部にヘッダを配置する時のレイアウトを指定。 -->
-                <a class="navbar-brand" href="/">アンサ</a>
-                <!-- navbar-brandでリンクにする？ -->
-                <!--  </div> -->
+            <!-- navbar-header ナビゲーションの内部にヘッダを配置する時のレイアウトを指定。 -->
+            <!-- navbar-brandはブランド名つまりロゴ -->
+            <!-- togglerは折りたたみ式のメニューぼたん -->
+            <!-- data-toggle=collapseは折りたたみボタンに必須collapseは、潰れるって意味があるからかな -->
+            <a class="navbar-brand" href="/">アンサ</a>
+            <!-- botton出なくbutton、また、navbar-toggler-icon toggleではない -->
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarText" aria-controls="navbarText" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarText">
+                <!-- navbar-navは正直意味不明。保留 要するにナビゲーションのためのバーなんだろうなあ。よくわからんが-->
+                <ul class="navbar-nav mr-auto">
+                    <!-- おそらく、バーを構成するitem activeなら有効 -->
+                    <li class="nav-item active">
+                        <!-- なんかよくわからんが、nav-linkで、navigationの中でのリンクになるんだろうなあ -->
+                        <!-- spanは特に意味ないけど、囲ったところがグループ化されるまあ、その部分だけフォント変えたりできるよ-->
+                        <!-- sr-onlyでスクリーンリーダ以外で非表示に。スクリーンリーダはPCの画面読み出しソフト。まあ、つまりPCの画面だけで表示ってことかな -->
+                        <a class="nav-link" href="/">ホーム<span class="sr-only">(current)</span></a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/about">アンサについて</a>
+                    </li>
+                    <li>
+                        <a class="nav-link" href="/question">質問</a>
+                    </li>
+                </ul>
+                <span class="navbar-text">
+                    ログイン
+                </span>
+            </div>
+            <!--  </div> -->
         </nav>
         <!-- コンテンツ本体 -->
         <!-- jumbotronを使う -->
