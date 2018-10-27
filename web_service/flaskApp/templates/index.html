@@ -1,4 +1,25 @@
-<!DOCTYPE html>
+<!-- 子テンプレート化 -->
+{% extends "thema.html" %}  <!-- thema.htmlの呼び出し -->
+<!-- 呼び出したあとで、個テンプレの内容で置き換え? -->
+<!-- {# block {ブロック名}という風に指定して囲ったエリアは親テンプレートの該当する箇所と置き換えられる #}-->
+{% block title %}Hello World {% endblock %}
+{% block head %}
+{{ super() }}  <!-- superを用いると、個ブロックで親ブロックの該当するブロックの中身を呼び出すことができる -->
+<!-- styleは、スタイルシートをhtmlのヘッドに直接かける
+     typeは読み込むスタイルシートの言語を指定
+さらに、bodyに関してstyle内に直接cssを書いてるね-->
+<style type="text/css">
+    body {
+    background-color: #ababab;
+    }
+</style>
+{% endblock %}
+{% block content %}
+<h1>{{title}}</h1>
+<p>{{message}}
+</p>
+{% endblock %}
+<!-- {# <!DOCTYPE html>
 <html>
     <head>
         <meta charset="utf-8"/>
@@ -12,7 +33,7 @@
         <!-- オートスケープを無効にする -->
         <!--   {# {% autoescape false %}
          <p>{{ unescaped }}</p>
-         {% endautoescape %} #}-->
+         {% endautoescape %} #} -->
         <!--  if文 -->
         <!--  {# {% if random > 0.5 %}
         <h1>Hoge</h1>
@@ -29,8 +50,8 @@
         <!-- <table>は表を作る -->
         <!-- <tr>はtable-rowつまり、行方向の指定 -->
         <!-- <th>は、table-header:テーブルのヘッダ-->
-        <!-- <td>はtable-data:テーブルのデータ -->
-        <table>
+<!-- <td>はtable-data:テーブルのデータ -->
+        <!-- <table>
             <tr>
                 <th></th>
                 <th></th>
@@ -44,4 +65,4 @@
         </table>
         
     </body>
-</html>
+</html> #} -->
