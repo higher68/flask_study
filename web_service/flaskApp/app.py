@@ -91,9 +91,13 @@ def title(title):
 ## def index():
 ##     return render_template('index.html', l=["Hoge", "Fuga", "Foo"])
 # tableへの辞書型を用いたループ処理
+## @app.route('/')
+## def index():
+##     return render_template('index.html', l=[{"name":"Hoge", "value":"1"}, {"name":"Fuga","value":"2"}, {"name":"Foo", "value":"3" }])
+# inheritance implement
 @app.route('/')
 def index():
-    return render_template('index.html', l=[{"name":"Hoge", "value":"1"}, {"name":"Fuga","value":"2"}, {"name":"Foo", "value":"3" }])
+    return render_template('index.html', title="Hoge", message="Fuga")
 
 ## def hello_world():  # render_templateを使わない時
 ##     return """
