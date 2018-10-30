@@ -6,15 +6,15 @@ app = Flask(__name__)
 conn = psycopg2.connect("dbname=testdb")
 cur = conn.cursor(cursor_factory=psycopg2.extras.DictCursor)
 
-@app.route('/', method=['GET'])
+@app.route('/', methods=['GET'])
 def index():
-    cur.execute(SELECT* FROM messages;)
+    cur.execute("SELECT* FROM messages;")
     messages = cur.fetchall()
     messages = [ dict(message) for message in messages]
     return render_template('index.html', messages=messages)
 
 
-@app.route('/', method=['POST'])
+@app.route('/post', methods=['GET'])
 def form():
     if request.method == 'GET':
         return render_template('form.html')
@@ -32,6 +32,8 @@ def post():
                                    message=request.form['message'])
         except Exception as e :
             return render_template('error.html')
+
+        
 @app.route('/answer')
 def answer():
     return render_template('answer.html')
