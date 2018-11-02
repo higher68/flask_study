@@ -4,10 +4,13 @@
         <meta charset='utf-8'/>        
     </head>
     <body>
-        <h1>メッセージを投稿</h1>
-        <form method="POST" action="/post">
+        <h1>ユーザを登録</h1>
+        <!-- app.pyのrequest.formに届きます -->
+        <form method="POST" action="/register" enctype="multipart/formada">
             <input placeholder="名前" name="username" type="text"/>
-            <textarea name="message" placeholder="コメント"></textarea>
+            <textarea name="message" placeholder="コメント">
+            </textarea>
+            <input type=
             <input value="送信" type="submit"/>
         </form>
     </body>
