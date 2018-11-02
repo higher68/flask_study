@@ -14,9 +14,35 @@ class User(db.Model):  # db.Modelを継承
     # ユーザーの名前、unique=Trueでデータの重複を防げる
     description = db.Column(db.String(120), index=True, unique=True)
     user_image_url = db.Column(db.String(120), index=True, unique=True)
-    def __repr__
+    def __repr__(self):
+        return '<User %r>'% self.username
+
+
+@app.cli.command('initdb')
+def initdb_command():
+    db.create_all()  # 設定したモデルからデータベースの操作を行える
+
+
+@app.route('/register')
+def register():
+    '''
+    フォームから新しいデータをDBに格納する
+    以上によって、複数のデータに対して安全に一貫した操作を行える。＝トランザクション処理
+'''
+    newUser = User(username="Rasmus Lerdorf",
+                   description="PHP",
+                   user_image_url="r6")  # モデルインスタンスの作成
+    db.session.add(newUser)  # db.sessionにデータベースへの変更が保存される
+    db.session.commit()  # db.session.rollback()で変更を取り消せる
+    return render_template('result.html', user=newUser)
+    
 conn = psycopg2.connect("dbname=testdb")  # databaseへのconnctionを作成
 cur = conn.cursor(cursor_factory=psycopg2.extras.DictCursor)  # connectionを作ったdatabaへのカーソルの作成
+
+users = User.query.all()  # データベースから個別のデータを取り出すためのメソッド
+for user in users:
+    print(user.id, user.username, user.description, user.user_image_url)
+
 
 @app.route('/', methods=['GET'])
 def index():
