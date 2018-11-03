@@ -6,9 +6,9 @@
     <body>
         <h1>ユーザを登録</h1>
         <!-- app.pyのrequest.formに届きます -->
-        <form method="POST" action="/register" enctype="multipart/formada">
+        <form method="POST" action="/register" enctype="multipart/form-data">
             <input placeholder="名前" name="username" type="text"/>
-            <textarea name="message" placeholder="コメント">
+            <textarea name="description" placeholder="コメント">
             </textarea>
             <input type="file" name="image/"/>
             <input value="送信" type="submit"/>
