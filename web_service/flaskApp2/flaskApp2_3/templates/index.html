@@ -5,13 +5,13 @@
     </head>
     <body>
         <table>
-            <tr>
-                <th></th>
+            <tr>  <!-- tr:table-row -->
+                <th></th>  <!-- th:ヘッダセル。表の見出し -->
                 <th></th>
                 <th></th>
             </tr>
             {% for user in users %}
-            <tr>
+            <tr><!-- td:table-data -->
                 <td>{{user.username}}</td>
                 <td>{{user.description}}</td>
                 <td>
